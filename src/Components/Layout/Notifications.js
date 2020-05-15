@@ -19,18 +19,24 @@ import { connect } from 'react-redux';
 import { markNotificationsRead } from '../../Redux/actions/userActions';
 
 class Notifications extends Component {
+  //create a state
   state = {
     anchorEl: null
   };
 
+  //func that handles what happens when user presses notification btn
   handleOpen = (event) => {
+    //update state 
     this.setState({ anchorEl: event.target });
   };
 
+  //func that handles what happens when user closes notification btn
   handleClose = () => {
+    //once user view Notifications, setState to null
     this.setState({ anchorEl: null });
   };
 
+  //
   onMenuOpened = () => {
     let unreadNotificationsIds = this.props.notifications
       .filter((not) => !not.read)
@@ -39,17 +45,22 @@ class Notifications extends Component {
   };
 
   render() {
+    //create var from var in props
     const notifications = this.props.notifications;
     const anchorEl = this.state.anchorEl;
 
     dayjs.extend(relativeTime);
 
     let notificationsIcon;
+
+    //if there notifications, and are more than 0
     if (notifications && notifications.length > 0) {
+      //filter notifications to return only the unread ones
       notifications.filter((not) => not.read === false).length > 0
+        //set badge to icon
         ? (notificationsIcon = (
-            <Badge
-              badgeContent={
+            //set number to badge by the number of unread notifications
+            <Badge badgeContent={
                 notifications.filter((not) => not.read === false).length
               }
               color="secondary"
@@ -57,10 +68,13 @@ class Notifications extends Component {
               <NotificationsIcon />
             </Badge>
           ))
+          //else return the regular notificationsIcon withOut badges
         : (notificationsIcon = <NotificationsIcon />);
     } else {
+      //else if you have no notifications, show notification icon
       notificationsIcon = <NotificationsIcon />;
     }
+
     let notificationsMarkup =
       notifications && notifications.length > 0 ? (
         notifications.map((not) => {
@@ -93,6 +107,7 @@ class Notifications extends Component {
           You have no notifications yet
         </MenuItem>
       );
+      
     return (
       <Fragment>
         <Tooltip placement="top" title="Notifications">

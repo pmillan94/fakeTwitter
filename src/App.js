@@ -23,8 +23,8 @@ import user from './Pages/user';
 import axios from 'axios';
 
 
-// axios.defaults.baseURL =
-//   'https://us-central1-testproject-ce760.cloudfunctions.net/api';
+axios.defaults.baseURL =
+  'https://us-central1-testproject-ce760.cloudfunctions.net/api';
 
 //Create theme and colors for entire website
 const theme = createMuiTheme(themeObject);
@@ -59,7 +59,8 @@ function App() {
                 <Route exact path="/" component={home} />
                 <AuthRoute exact path="/login" component={Login} />
                 <AuthRoute exact path="/signup" component={signup} />
-                <Route exact path="/users/:handle" component={user} />
+                <Route exact path="/users/:userName" component={user} />
+                <Route exact path="/users/:userName/scream/:screamId" component={user} />
               </Switch>
             </div>
           </Router>

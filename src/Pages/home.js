@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 
 import Post from '../Components/Post/Post';
 import Profile from '../Components/Profile/Profile';
+import PostSkeleton from '../Util/PostSkeleton';
+
 //redux stuff
 import { connect } from 'react-redux';
 import { getScreams } from '../Redux/actions/dataActions';
@@ -26,7 +28,7 @@ class home extends Component {
             screams.map((scream) => <Post key={scream.screamId} scream={scream} />)
           ) : (
               //else
-            <p>Loading..</p>
+            <PostSkeleton />
         );
         return (
             <Grid container spacing={2}>

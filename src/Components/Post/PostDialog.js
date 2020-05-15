@@ -54,26 +54,37 @@ class PostDialog extends Component {
     oldPath: '',
     newPath: ''
   };
+  //check if you have openDialog
   componentDidMount() {
     if (this.props.openDialog) {
       this.handleOpen();
     }
   }
   handleOpen = () => {
+    //create var for old path
     let oldPath = window.location.pathname;
 
+    //get var passed down by props fom scream state
     const { userHandle, screamId } = this.props;
 
+    //create var to store new url path 
     const newPath = `/users/${userHandle}/scream/${screamId}`;
 
+    //fix bug where path is the same, set oldPath as user profile
     if (oldPath === newPath) oldPath = `/users/${userHandle}`;
 
+    //set url path to exact post url
     window.history.pushState(null, null, newPath);
 
+    //update state with oldPath, and newPath values to use later if needed
     this.setState({ open: true, oldPath, newPath });
+    //call getScream func passing screamId var
     this.props.getScream(this.props.screamId);
   };
+
+  //func that handles what happens if used clicks close
   handleClose = () => {
+    //if user clicks close on dialog, set url to oldPath
     window.history.pushState(null, null, this.state.oldPath);
     this.setState({ open: false });
     //clear errors everytime user clicks close
