@@ -18,7 +18,7 @@ import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
 import home from './Pages/home';
 import Login from './Pages/login';
 import signup from './Pages/signup';
-// import user from './Pages/user';
+import user from './Pages/user';
 
 import axios from 'axios';
 
@@ -59,6 +59,7 @@ function App() {
                 <Route exact path="/" component={home} />
                 <AuthRoute exact path="/login" component={Login} />
                 <AuthRoute exact path="/signup" component={signup} />
+                <Route exact path="/users/:handle" component={user} />
               </Switch>
             </div>
           </Router>

@@ -1,28 +1,33 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import Scream from '../components/scream/Scream';
-import StaticProfile from '../components/profile/StaticProfile';
+import Scream from '../Components/Post/Post';
+import StaticProfile from '../Components/Profile/StaticProfile';
 import Grid from '@material-ui/core/Grid';
 
-// import ScreamSkeleton from '../util/ScreamSkeleton';
-// import ProfileSkeleton from '../util/ProfileSkeleton';
+// import ScreamSkeleton from '../Util/ScreamSkeleton';
+// import ProfileSkeleton from '../Util/ProfileSkeleton';
 
 import { connect } from 'react-redux';
 import { getUserData } from '../Redux/actions/dataActions';
 
 class user extends Component {
+
+ //create a new state
   state = {
     profile: null,
     screamIdParam: null
   };
+
+  //when component mounts fetch specific user data from props (handle, screamId)
   componentDidMount() {
+    //create var to store prop values (will later be refrence)
     const handle = this.props.match.params.handle;
     const screamId = this.props.match.params.screamId;
 
     if (screamId) this.setState({ screamIdParam: screamId });
-
     this.props.getUserData(handle);
+
     axios
       .get(`/user/${handle}`)
       .then((res) => {
@@ -32,16 +37,24 @@ class user extends Component {
       })
       .catch((err) => console.log(err));
   }
+
+
   render() {
+
     const { screams, loading } = this.props.data;
     const { screamIdParam } = this.state;
 
     const screamsMarkup = loading ? (
-      <ScreamSkeleton />
+        //If we are loading
+      // <ScreamSkeleton />
+      <p>Loading data....</p>
+      //if user does not have any screams
     ) : screams === null ? (
       <p>No screams from this user</p>
+      //if user does have scream display screams
     ) : !screamIdParam ? (
       screams.map((scream) => <Scream key={scream.screamId} scream={scream} />)
+      //if user does have scream display screams
     ) : (
       screams.map((scream) => {
         if (scream.screamId !== screamIdParam)
@@ -51,14 +64,17 @@ class user extends Component {
     );
 
     return (
-      <Grid container spacing={16}>
+      <Grid container spacing={2}>
         <Grid item sm={8} xs={12}>
           {screamsMarkup}
         </Grid>
         <Grid item sm={4} xs={12}>
+          {/* if profile is not found */}
           {this.state.profile === null ? (
-            <ProfileSkeleton />
+            // <ProfileSkeleton />
+            <p>Loading Profile...</p>
           ) : (
+          // if profile exist, but is not logged in user
             <StaticProfile profile={this.state.profile} />
           )}
         </Grid>
@@ -67,13 +83,16 @@ class user extends Component {
   }
 }
 
+//needed props to workwith 
 user.propTypes = {
   getUserData: PropTypes.func.isRequired,
   data: PropTypes.object.isRequired
 };
 
+//get data from state
 const mapStateToProps = (state) => ({
   data: state.data
 });
 
-export default connect( mapStateToProps, { getUserData })(user);
+//import func getUserData with connect prop
+export default connect(mapStateToProps,{ getUserData })(user);

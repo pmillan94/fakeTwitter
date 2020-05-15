@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import MyButton from '../../Util/MyButton';
-// import PostScream from '../scream/PostScream';
+import NewPost from '../Post/NewPost';
 import Notifications from './Notifications';
 // MUI stuff
 import AppBar from '@material-ui/core/AppBar';
@@ -23,7 +23,7 @@ class Navbar extends Component {
          {/* if authenticated/logged in show */}
           {authenticated ? (
             <Fragment>
-              {/* <PostScream /> */}
+              <NewPost />
               <Link to="/">
                 <MyButton tip="Home">
                   <HomeIcon />

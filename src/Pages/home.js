@@ -3,7 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types';
 
 import Post from '../Components/Post/Post';
-import Profile from '../Components/Profile';
+import Profile from '../Components/Profile/Profile';
 //redux stuff
 import { connect } from 'react-redux';
 import { getScreams } from '../Redux/actions/dataActions';

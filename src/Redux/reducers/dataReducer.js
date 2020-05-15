@@ -37,6 +37,7 @@ import { SET_SCREAMS, LIKE_SCREAM, UNLIKE_SCREAM, LOADING_DATA,
         //once you have the index scream, replace the action payload with it
         state.screams[index] = action.payload;
         
+        //if screamId value is the same as in the payload, update the value of it from the payload 
         if (state.scream.screamId === action.payload.screamId) {
           state.scream = action.payload;
         }

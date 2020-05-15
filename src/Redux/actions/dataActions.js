@@ -113,7 +113,7 @@ export const likeScream = (screamId) => (dispatch) => {
       .catch((err) => console.log(err));
   };
 
-  
+ //getUserData for profile page 
   export const getUserData = (userHandle) => (dispatch) => {
     dispatch({ type: LOADING_DATA });
     axios
